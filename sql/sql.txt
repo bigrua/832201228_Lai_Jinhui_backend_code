@@ -1,0 +1,12 @@
+
+create table biz_book
+(
+    book_id       bigint auto_increment comment '电话本ID'
+        primary key,
+    book_name     varchar(50) not null comment '姓名',
+    book_phone    varchar(50) not null comment '手机号',
+    create_time   datetime    null comment '创建时间'
+)
+    comment '电话本';
+
+

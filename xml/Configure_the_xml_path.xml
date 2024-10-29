@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.BizBookMapper">
+    
+    <resultMap type="BizBook" id="BizBookResult">
+        <result property="bookId"    column="book_id"    />
+        <result property="bookName"    column="book_name"    />
+        <result property="bookPhone"    column="book_phone"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectBizBookVo">
+        select book_id, book_name, book_phone, create_time from biz_book
+    </sql>
+
+    <select id="selectBizBookList" parameterType="BizBook" resultMap="BizBookResult">
+        <include refid="selectBizBookVo"/>
+        <where>  
+            <if test="bookName != null  and bookName != ''"> and book_name like concat('%', #{bookName}, '%')</if>
+            <if test="bookPhone != null  and bookPhone != ''"> and book_phone = #{bookPhone}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizBookByBookId" parameterType="Long" resultMap="BizBookResult">
+        <include refid="selectBizBookVo"/>
+        where book_id = #{bookId}
+    </select>
+
+    <insert id="insertBizBook" parameterType="BizBook" useGeneratedKeys="true" keyProperty="bookId">
+        insert into biz_book
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bookName != null and bookName != ''">book_name,</if>
+            <if test="bookPhone != null and bookPhone != ''">book_phone,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bookName != null and bookName != ''">#{bookName},</if>
+            <if test="bookPhone != null and bookPhone != ''">#{bookPhone},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizBook" parameterType="BizBook">
+        update biz_book
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bookName != null and bookName != ''">book_name = #{bookName},</if>
+            <if test="bookPhone != null and bookPhone != ''">book_phone = #{bookPhone},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where book_id = #{bookId}
+    </update>
+
+    <delete id="deleteBizBookByBookId" parameterType="Long">
+        delete from biz_book where book_id = #{bookId}
+    </delete>
+
+    <delete id="deleteBizBookByBookIds" parameterType="String">
+        delete from biz_book where book_id in 
+        <foreach item="bookId" collection="array" open="(" separator="," close=")">
+            #{bookId}
+        </foreach>
+    </delete>
+</mapper>
