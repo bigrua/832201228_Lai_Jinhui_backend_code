@@ -1,8 +1,21 @@
-Backend
-domain.java: used to define the data entity class, containing properties, getter and setter methods.
-mapper.java: interface file, responsible for interacting with the database. SQL statements are mapped when using frameworks such as MyBatis.
-service.java: service interface, defines the functions of the business logic layer, including the processing of data and logical judgements.
-serviceImpl.java: service implementation class, the specific implementation of the methods defined in service.java, call the methods in mapper.java to complete the actual business logic.
-controller.java: controller class , handle user requests , call the methods of the service layer and return the response. Usually used in MVC architecture.
-mapper.xml: MyBatis XML configuration file , defining specific SQL statements , combined with the mapper.java interface to perform database operations .
-These files together form the basic architecture of a complete Java application
+
+Code Specifications
+Naming conventions:
+Package name: Use lowercase letters, usually a combination of organisation name and function module name, e.g. com.ruoyi.system.mapper.
+Class names: use camel-case naming starting with a capital letter, e.g. BizBookMapper.
+Method name: use camel case name, e.g. selectBizBookByBookId.
+Variable names: camel case names starting with a lowercase letter, e.g. bizBook.
+Annotation specification:
+Class annotations: Use Javadoc annotations to describe the class functionality and author information.
+Method annotations: Use Javadoc annotations before each method, describing the method's function, parameters, and return value.
+In-line comments: Use single line comments when necessary to explain complex logic.
+Structure specification:
+Interface methods: Interface methods should be explicit and have consistent return types and parameter styles.
+Method Order: Arrange methods in a logical order, e.g. CRUD operations can be listed in order (query, insert, update, delete).
+Spaces and indentation: Maintain consistent spaces and indentation, typically using four spaces for indentation.
+Return type:
+Return value: for query methods return an object or list, update or delete methods return an integer result (number of rows affected).
+Exception Handling:
+Exceptions are not handled directly in the interface definition, but should be sensibly caught and handled in the implementation class.
+Code Format:
+Use a consistent code format, such as a blank line between each method, to increase readability.
